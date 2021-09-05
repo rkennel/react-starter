@@ -19,10 +19,18 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "pretest": "yarn lint-fix",
+    "pretest": "yarn lint",
     "test": "react-scripts test",
+    "pretest:precommit": "yarn lint",
+    "test:precommit": "CI=true react-scripts test src/**/:*.test.tsx? --coverage --maxWorkers==1  --reporters=default --reporters=jest-html-reporters",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn test:precommit",
+      "pre-push": "yarn test:precommit"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -53,6 +61,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^7.0.2",
+    "pinst": "^2.1.6",
     "prettier": "2.3.2"
   }
 }
